@@ -1,35 +1,67 @@
-// app.js
+// app.js (Render 최종 안정화 버전)
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const app = express();
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log("Server started successfully on port", PORT);
-});
-
-// 뷰 엔진 설정
+// ─────────────────────────────
+// 1️⃣ 기본 설정
+// ─────────────────────────────
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 실제 운영시에는 예: https://your-domain.com/bu-eop 로 바꿔주세요
-const LANDING_URL = process.env.LANDING_URL || 'http://localhost:3000/bu-eop';
-const KAKAO_LINK = process.env.KAKAO_LINK || 'https://open.kakao.com/o/ghEwnw0h';
+// ─────────────────────────────
+// 2️⃣ 라우팅 (페이지 경로)
+// ─────────────────────────────
+app.get('/', (req, res) => {
+  res.send('홈 페이지입니다. /bu-eop 으로 이동해보세요.');
+});
 
 app.get('/bu-eop', (req, res) => {
-  res.render('landing', {
-    title: '부업 - 실전 가이드 및 오픈채팅',
-    description: '부업 초보자를 위한 실전 가이드와 실시간 상담 오픈채팅. 무료 정보/사례/문의 안내.',
-    url: LANDING_URL,
-    kakaoLink: KAKAO_LINK,
-    published: new Date().toISOString()
-  });
+  res.render('bu-eop'); // views/bu-eop.ejs 렌더링
 });
 
-// 간단한 홈 리디렉트(루트 접속 시 랜딩으로)
-app.get('/', (req, res) => res.redirect('/bu-eop'));
+// ─────────────────────────────
+// 3️⃣ robots.txt 자동 제공
+// ─────────────────────────────
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.send(`User-agent: *
+Allow: /
+Sitemap: https://bu-eop-landing.onrender.com/sitemap.xml`);
+});
 
+// ─────────────────────────────
+// 4️⃣ sitemap.xml 자동 생성
+// ─────────────────────────────
+app.get('/sitemap.xml', (req, res) => {
+  res.type('application/xml');
+  const baseUrl = 'https://bu-eop-landing.onrender.com';
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+      <loc>${baseUrl}/</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    <url>
+      <loc>${baseUrl}/bu-eop</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>1.0</priority>
+    </url>
+  </urlset>`;
+  res.send(xml);
+});
+
+// ─────────────────────────────
+// 5️⃣ Render용 포트 설정
+// ─────────────────────────────
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server started at http://localhost:${PORT}`);
+  console.log(`✅ Server started successfully on port ${PORT}`);
+  console.log(`🌐 Access the site at: https://bu-eop-landing.onrender.com`);
 });
+
