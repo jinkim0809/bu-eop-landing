@@ -57,10 +57,10 @@ app.get('/sitemap.xml', (req, res) => {
 });
 
 // ─────────────────────────────
-// 5️⃣ Render용 포트 설정
+// 5️⃣ Render용 포트 설정 (정상 작동 버전)
 // ─────────────────────────────
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Server started successfully on port ${PORT}`);
   console.log(`🌐 Access the site at: https://bu-eop-landing.onrender.com`);
 });
