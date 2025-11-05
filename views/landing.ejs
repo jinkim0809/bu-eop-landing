@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title><%= title %></title>
+  <meta name="description" content="<%= description %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="<%= url %>">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="<%= title %>">
+  <meta property="og:description" content="<%= description %>">
+  <meta property="og:url" content="<%= url %>">
+
+  <!-- 키워드 메타(참고용, 요즘은 중요도 낮음) -->
+  <meta name="keywords" content="부업, 재택부업, 부업추천">
+
+  <!-- 구조화데이터(Article 기본) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "<%= title %>",
+    "description": "<%= description %>",
+    "url": "<%= url %>",
+    "datePublished": "<%= published %>"
+  }
+  </script>
+
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif; padding: 20px; max-width: 900px; margin: auto; }
+    header { margin-bottom: 20px; }
+    .cta { display:block; background:#0078ff; color:#fff; padding:12px 16px; text-decoration:none; border-radius:8px; width:max-content; }
+    .meta { color:#666; font-size:14px; margin-bottom:12px; }
+    article img { max-width:100%; height:auto; }
+    footer { margin-top:40px; color:#888; font-size:13px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><%= title %></h1>
+    <p class="meta">최신 가이드 · 실전 사례 · 오픈채팅으로 실시간 문의</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>부업 시작하기 — 핵심 팁</h2>
+      <p>여기에 부업 소개 / 실제 사례 / 준비물 등 풍부한 내용을 채워 넣으세요. <strong>키워드 '부업'</strong>을 자연스럽게 포함합니다.</p>
+      <ul>
+        <li>사례 1: …</li>
+        <li>사례 2: …</li>
+        <li>FAQ: …</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>실시간 상담 / 커뮤니티</h2>
+      <p>부업 관련 실시간 상담은 아래 오픈채팅에서 진행합니다.</p>
+      <p><a class="cta" href="<%= kakaoLink %>" target="_blank" rel="noopener noreferrer">오픈채팅 입장 — 부업 정보</a></p>
+    </section>
+
+    <article>
+      <h3>자세한 가이드</h3>
+      <p>여기에 단계별 가이드(예: 시작 방법, 유의사항, 추천 자원)를 길게 작성하세요. 본문이 길고 유용할수록 검색엔진 신호가 좋아집니다.</p>
+    </article>
+  </main>
+
+  <footer>
+    <p>© <%= new Date().getFullYear() %> Your Brand · 연락처/저자 정보 기입</p>
+  </footer>
+</body>
+</html>
