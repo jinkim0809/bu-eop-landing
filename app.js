@@ -4,6 +4,9 @@ const path = require('path');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log("Server started successfully on port", PORT);
+});
 
 // 뷰 엔진 설정
 app.set('view engine', 'ejs');
